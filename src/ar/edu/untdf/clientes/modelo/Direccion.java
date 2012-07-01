@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ar.edu.untdf.clientes.modelo;
 
 import java.io.Serializable;
@@ -13,6 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 public class Direccion implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,6 +20,7 @@ public class Direccion implements Serializable {
     private Cliente cliente;
     @Enumerated(EnumType.STRING)
     private DireccionTipo tipo;
+    private long telefono;
 
     public Cliente getCliente() {
         return cliente;
@@ -31,7 +29,7 @@ public class Direccion implements Serializable {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    private long telefono;
+
     public Long getId() {
         return id;
     }
@@ -96,5 +94,4 @@ public class Direccion implements Serializable {
     public String toString() {
         return "ar.edu.untdf.clientes.modelo.Direccion[ id=" + id + " ]";
     }
-    
 }

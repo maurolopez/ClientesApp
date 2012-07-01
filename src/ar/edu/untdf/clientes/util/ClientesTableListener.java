@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ar.edu.untdf.clientes.util;
 
 import ar.edu.untdf.clientes.vista.Clientes;
@@ -13,7 +9,8 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author Matias
  */
-    public class ClientesTableListener implements ListSelectionListener {
+public class ClientesTableListener implements ListSelectionListener {
+
     Clientes form;
     int rowSelected=0;
 
@@ -22,12 +19,10 @@ import javax.swing.event.ListSelectionListener;
     public ClientesTableListener(Clientes form) {
         this.form = form;
     }
+
     public void valueChanged(ListSelectionEvent e) {
-        
-        
         // If cell selection is enabled, both row and column change events are fired
-        if ( this.rowSelected!=form.getTableClientes().getSelectedRow() && form.getTableClientes().getSelectedRow()>0)
-        { 
+        if ( this.rowSelected!=form.getTableClientes().getSelectedRow() && form.getTableClientes().getSelectedRow()>0) { 
             System.out.println(form.getTableClientes().getSelectedRow());
           this.rowSelected=form.getTableClientes().getSelectedRow();
         }
@@ -37,4 +32,3 @@ import javax.swing.event.ListSelectionListener;
         }
     }
 }
-

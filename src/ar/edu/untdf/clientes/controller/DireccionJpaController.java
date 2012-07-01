@@ -24,6 +24,7 @@ public class DireccionJpaController implements Serializable {
     public DireccionJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
+
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
@@ -133,5 +134,4 @@ public class DireccionJpaController implements Serializable {
             em.close();
         }
     }
-    
 }

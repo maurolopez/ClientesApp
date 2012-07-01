@@ -14,6 +14,7 @@ import javax.persistence.*;
  */
 @Entity
 public class Cliente implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,6 +25,7 @@ public class Cliente implements Serializable {
     private Long cuit;
     @OneToMany(mappedBy="cliente")
     private Collection<Direccion> direcciones;
+
     public String getApellido() {
         return apellido;
     }
@@ -51,8 +53,6 @@ public class Cliente implements Serializable {
     public Long getId() {
         return id;
     }
-    
-   
 
     public void setId(Long id) {
         this.id = id;
@@ -82,5 +82,4 @@ public class Cliente implements Serializable {
     public String toString() {
         return "ar.edu.untdf.clientes.modelo.Cliente[ id=" + id + " ]";
     }
-    
 }

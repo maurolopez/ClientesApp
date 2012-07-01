@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ar.edu.untdf.clientes.vista;
 import ar.edu.untdf.clientes.ClientesApp;
 import ar.edu.untdf.clientes.modelo.Cliente;
@@ -23,8 +19,6 @@ public class Clientes extends javax.swing.JInternalFrame {
         initComponents();
         ClientesTableListener listener = new ClientesTableListener(this);
         tableClientes.getSelectionModel().addListSelectionListener(listener);
-        
-        
     }
 
     public JButton getAceptar() {
@@ -195,12 +189,11 @@ public class Clientes extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoActionPerformed
-    fieldApellido.setText("");
-    fieldNombre.setText("");
-    fieldCuit.setText("");
-    aceptar.setEnabled(true);
-    cancelar.setEnabled(true);
-    
+        fieldApellido.setText("");
+        fieldNombre.setText("");
+        fieldCuit.setText("");
+        aceptar.setEnabled(true);
+        cancelar.setEnabled(true);
     }//GEN-LAST:event_nuevoActionPerformed
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
@@ -212,8 +205,6 @@ public class Clientes extends javax.swing.JInternalFrame {
         tableClientes.setModel(new ClienteTableModel());
         aceptar.setEnabled(false);
         cancelar.setEnabled(false);
-        
-        
     }//GEN-LAST:event_aceptarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

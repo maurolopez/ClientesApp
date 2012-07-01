@@ -1,12 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ar.edu.untdf.clientes;
 
 import ar.edu.untdf.clientes.controller.ClienteJpaController;
 import ar.edu.untdf.clientes.controller.DireccionJpaController;
 import ar.edu.untdf.clientes.modelo.Cliente;
+import ar.edu.untdf.clientes.vista.Aplicacion;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -50,8 +47,10 @@ public class ClientesApp {
         //TypedQuery<Cliente> q=ClientesApp.getClienteC().getEntityManager().createQuery("select e from Cliente as e where e.apellido='gel'",Cliente.class);
         //List<Cliente> l =q.getResultList();
         //for(Cliente c:l) System.out.println(c.getNombre());
-        Cliente c= ClientesApp.clienteC.findCliente(new Long(53));
-        System.out.println(c.getApellido());
+        Aplicacion app = new Aplicacion();
+        app.setVisible(true);
+        Cliente c = ClientesApp.clienteC.findCliente(new Long(53));
+        //System.out.println(c.getApellido());
     }
    
 }

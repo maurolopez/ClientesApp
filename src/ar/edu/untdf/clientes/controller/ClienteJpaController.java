@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ar.edu.untdf.clientes.controller;
 
 import ar.edu.untdf.clientes.controller.exceptions.NonexistentEntityException;
@@ -24,6 +20,7 @@ public class ClienteJpaController implements Serializable {
     public ClienteJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
+
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
@@ -133,5 +130,4 @@ public class ClienteJpaController implements Serializable {
             em.close();
         }
     }
-    
 }
