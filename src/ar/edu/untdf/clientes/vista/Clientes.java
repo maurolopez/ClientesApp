@@ -137,8 +137,10 @@ public class Clientes extends javax.swing.JInternalFrame {
         jbDirecciones.setEnabled(false);
 
         jbEliminar.setText("Eliminar");
+        jbEliminar.setEnabled(false);
 
         jbEditar.setText("Editar");
+        jbEditar.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -207,7 +209,7 @@ public class Clientes extends javax.swing.JInternalFrame {
                     .addComponent(jbDirecciones)
                     .addComponent(jbEliminar)
                     .addComponent(jbEditar))
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -233,6 +235,12 @@ public class Clientes extends javax.swing.JInternalFrame {
                 c.setCuit((Long.parseLong(fieldCuit.getText())));
                 ClientesApp.getClienteC().create(c);
                 tableClientes.setModel(new ClienteTableModel());
+                fieldNombre.setText("");
+                fieldNombre.setEnabled(false);
+                fieldApellido.setText("");
+                fieldApellido.setEnabled(false);
+                fieldCuit.setText("");
+                fieldCuit.setEnabled(false);
                 aceptar.setEnabled(false);
                 cancelar.setEnabled(false);
             }catch(NumberFormatException ex){
