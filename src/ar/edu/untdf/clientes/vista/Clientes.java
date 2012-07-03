@@ -91,6 +91,8 @@ public class Clientes extends javax.swing.JInternalFrame {
         aceptar = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
         jbDirecciones = new javax.swing.JButton();
+        jbEliminar = new javax.swing.JButton();
+        jbEditar = new javax.swing.JButton();
 
         tableClientes.setModel(new ar.edu.untdf.clientes.util.ClienteTableModel());
         tableClientes.setShowHorizontalLines(false);
@@ -134,6 +136,10 @@ public class Clientes extends javax.swing.JInternalFrame {
         jbDirecciones.setText("Direcciones");
         jbDirecciones.setEnabled(false);
 
+        jbEliminar.setText("Eliminar");
+
+        jbEditar.setText("Editar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -152,10 +158,9 @@ public class Clientes extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel1))
                                 .addGap(33, 33, 33)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(fieldNombre)
-                                    .addComponent(fieldApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
-                                    .addComponent(fieldCuit))
-                                .addGap(172, 172, 172))
+                                    .addComponent(fieldApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                                    .addComponent(fieldCuit)
+                                    .addComponent(fieldNombre)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(nuevo)
@@ -163,9 +168,14 @@ public class Clientes extends javax.swing.JInternalFrame {
                                         .addComponent(aceptar)
                                         .addGap(18, 18, 18)
                                         .addComponent(cancelar)))
-                                .addContainerGap())))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jbDirecciones)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbEliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbEditar)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -193,8 +203,11 @@ public class Clientes extends javax.swing.JInternalFrame {
                             .addComponent(cancelar)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jbDirecciones)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbDirecciones)
+                    .addComponent(jbEliminar)
+                    .addComponent(jbEditar))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
 
         pack();
@@ -257,6 +270,8 @@ public class Clientes extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbDirecciones;
+    private javax.swing.JButton jbEditar;
+    private javax.swing.JButton jbEliminar;
     private javax.swing.JButton nuevo;
     private javax.swing.JTable tableClientes;
     // End of variables declaration//GEN-END:variables

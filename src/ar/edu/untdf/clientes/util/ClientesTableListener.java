@@ -22,7 +22,7 @@ public class ClientesTableListener implements ListSelectionListener {
     @Override
     public void valueChanged(ListSelectionEvent e) {
         // If cell selection is enabled, both row and column change events are fired
-        if ( this.rowSelected!=form.getTableClientes().getSelectedRow() && form.getTableClientes().getSelectedRow()>0) { 
+        if ( this.rowSelected != form.getTableClientes().getSelectedRow() && form.getTableClientes().getSelectedRow()>=0) { 
             System.out.println(form.getTableClientes().getSelectedRow());
           this.rowSelected=form.getTableClientes().getSelectedRow();
         }
