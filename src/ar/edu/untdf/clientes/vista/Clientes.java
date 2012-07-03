@@ -4,6 +4,7 @@ import ar.edu.untdf.clientes.modelo.Cliente;
 import ar.edu.untdf.clientes.util.ClienteTableModel;
 import ar.edu.untdf.clientes.util.ClientesTableListener;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 /**
@@ -89,17 +90,17 @@ public class Clientes extends javax.swing.JInternalFrame {
         nuevo = new javax.swing.JButton();
         aceptar = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
+        jbDirecciones = new javax.swing.JButton();
 
         tableClientes.setModel(new ar.edu.untdf.clientes.util.ClienteTableModel());
-        tableClientes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tableClientes.setShowHorizontalLines(false);
         jScrollPane1.setViewportView(tableClientes);
 
-        fieldNombre.setText("jTextField1");
+        fieldNombre.setEnabled(false);
 
-        fieldApellido.setText("jTextField2");
+        fieldApellido.setEnabled(false);
 
-        fieldCuit.setText("jTextField3");
+        fieldCuit.setEnabled(false);
 
         jLabel1.setText("Nombre");
 
@@ -107,14 +108,14 @@ public class Clientes extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Cuit");
 
-        nuevo.setText("nuevo");
+        nuevo.setText("Nuevo");
         nuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nuevoActionPerformed(evt);
             }
         });
 
-        aceptar.setText("aceptar");
+        aceptar.setText("Aceptar");
         aceptar.setEnabled(false);
         aceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,8 +123,16 @@ public class Clientes extends javax.swing.JInternalFrame {
             }
         });
 
-        cancelar.setText("cancelar");
+        cancelar.setText("Cancelar");
         cancelar.setEnabled(false);
+        cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarActionPerformed(evt);
+            }
+        });
+
+        jbDirecciones.setText("Direcciones");
+        jbDirecciones.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,32 +140,33 @@ public class Clientes extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                                .addComponent(fieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel1))
                                 .addGap(33, 33, 33)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(fieldApellido)
-                                    .addComponent(fieldCuit))))
-                        .addGap(172, 172, 172))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nuevo)
+                                    .addComponent(fieldNombre)
+                                    .addComponent(fieldApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                                    .addComponent(fieldCuit))
+                                .addGap(172, 172, 172))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(aceptar)
-                                .addGap(18, 18, 18)
-                                .addComponent(cancelar)))
-                        .addContainerGap())))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nuevo)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(aceptar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cancelar)))
+                                .addContainerGap())))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbDirecciones)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,7 +192,9 @@ public class Clientes extends javax.swing.JInternalFrame {
                             .addComponent(aceptar)
                             .addComponent(cancelar)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jbDirecciones)
+                .addContainerGap(97, Short.MAX_VALUE))
         );
 
         pack();
@@ -190,22 +202,49 @@ public class Clientes extends javax.swing.JInternalFrame {
 
     private void nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoActionPerformed
         fieldApellido.setText("");
+        fieldApellido.setEnabled(true);
         fieldNombre.setText("");
+        fieldNombre.setEnabled(true);
         fieldCuit.setText("");
+        fieldCuit.setEnabled(true);
         aceptar.setEnabled(true);
         cancelar.setEnabled(true);
     }//GEN-LAST:event_nuevoActionPerformed
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
-        Cliente c=new Cliente();
-        c.setNombre(fieldNombre.getText());
-        c.setApellido(fieldApellido.getText());
-        c.setCuit((Long.parseLong(fieldCuit.getText())));
-        ClientesApp.getClienteC().create(c);
-        tableClientes.setModel(new ClienteTableModel());
+        Cliente c = new Cliente();
+        if(!fieldNombre.getText().equals("") && !fieldApellido.getText().equals("") && !fieldCuit.getText().equals("")) {
+            try {
+                c.setNombre(fieldNombre.getText());
+                c.setApellido(fieldApellido.getText());
+                c.setCuit((Long.parseLong(fieldCuit.getText())));
+                ClientesApp.getClienteC().create(c);
+                tableClientes.setModel(new ClienteTableModel());
+                aceptar.setEnabled(false);
+                cancelar.setEnabled(false);
+            }catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(null,
+                    "Cuit no es numérico",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        else
+            JOptionPane.showMessageDialog(null,
+                    "Complete los campos obligatorios.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+    }//GEN-LAST:event_aceptarActionPerformed
+    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
+        fieldApellido.setText("");
+        fieldApellido.setEnabled(false);
+        fieldNombre.setText("");
+        fieldNombre.setEnabled(false);
+        fieldCuit.setText("");
+        fieldCuit.setEnabled(false);
         aceptar.setEnabled(false);
         cancelar.setEnabled(false);
-    }//GEN-LAST:event_aceptarActionPerformed
+    }//GEN-LAST:event_cancelarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptar;
@@ -217,6 +256,7 @@ public class Clientes extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbDirecciones;
     private javax.swing.JButton nuevo;
     private javax.swing.JTable tableClientes;
     // End of variables declaration//GEN-END:variables

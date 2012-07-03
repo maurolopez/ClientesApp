@@ -16,7 +16,7 @@ public class ClienteTableModel extends AbstractTableModel {
 
     public ClienteTableModel() {
         super();
-        clienteC=ClientesApp.getClienteC();
+        clienteC = ClientesApp.getClienteC();
         this.clientes= clienteC.findClienteEntities().toArray();
     }
 
@@ -31,23 +31,23 @@ public class ClienteTableModel extends AbstractTableModel {
     }
 
     @Override
-    public Object getValueAt(int row, int column){
+    public Object getValueAt(int row, int column) {
         switch(column) {
-            case 1:return ((Cliente)clientes[row]).getId();
+            case 0:return ((Cliente)clientes[row]).getId();
+            case 1:return ((Cliente)clientes[row]).getApellido();
             case 2:return ((Cliente)clientes[row]).getNombre();
-            case 3:return ((Cliente)clientes[row]).getApellido();
-            case 4:return ((Cliente)clientes[row]).getCuit();
+            case 3:return ((Cliente)clientes[row]).getCuit();
             default:return null;
         }
     }
 
     @Override
     public String getColumnName(int columnIndex) {
-        switch(columnIndex){
-            case 1:return "id";
-            case 2:return "nombre";
-            case 3:return "apellido";
-            case 4:return "cuit";
+        switch(columnIndex) {
+            case 0:return "ID";
+            case 1:return "Apellido";
+            case 2:return "Nombre";
+            case 3:return "Cuit";
             default:return null;
         }
     }
