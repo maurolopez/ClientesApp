@@ -1,12 +1,16 @@
 package ar.edu.untdf.clientes.vista;
 import ar.edu.untdf.clientes.ClientesApp;
+import ar.edu.untdf.clientes.controller.ClienteJpaController;
 import ar.edu.untdf.clientes.modelo.Cliente;
 import ar.edu.untdf.clientes.util.ClienteTableModel;
 import ar.edu.untdf.clientes.util.ClientesTableListener;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+
 /**
  *
  * @author Matias
@@ -134,7 +138,11 @@ public class Clientes extends javax.swing.JInternalFrame {
         });
 
         jbDirecciones.setText("Direcciones");
-        jbDirecciones.setEnabled(false);
+        jbDirecciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbDireccionesActionPerformed(evt);
+            }
+        });
 
         jbEliminar.setText("Eliminar");
         jbEliminar.setEnabled(false);
@@ -209,7 +217,7 @@ public class Clientes extends javax.swing.JInternalFrame {
                     .addComponent(jbDirecciones)
                     .addComponent(jbEliminar)
                     .addComponent(jbEditar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -243,7 +251,7 @@ public class Clientes extends javax.swing.JInternalFrame {
                 fieldCuit.setEnabled(false);
                 aceptar.setEnabled(false);
                 cancelar.setEnabled(false);
-            }catch(NumberFormatException ex){
+            }catch(NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null,
                     "Cuit no es numérico",
                     "Error",
@@ -256,6 +264,7 @@ public class Clientes extends javax.swing.JInternalFrame {
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_aceptarActionPerformed
+
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
         fieldApellido.setText("");
         fieldApellido.setEnabled(false);
@@ -266,6 +275,23 @@ public class Clientes extends javax.swing.JInternalFrame {
         aceptar.setEnabled(false);
         cancelar.setEnabled(false);
     }//GEN-LAST:event_cancelarActionPerformed
+
+    private void jbDireccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDireccionesActionPerformed
+        if(tableClientes.getSelectedRow() != -1) {
+            Integer fila = tableClientes.getSelectedRow();
+            Long id = (Long) tableClientes.getModel().getValueAt(fila, 0);
+            
+            Cliente c = ClientesApp.getClienteC().findCliente(id);
+            Direcciones d = new Direcciones(c);
+            d.setMiCliente(c);
+            Aplicacion.getApp().addFrame(d,"direcciones");
+        }
+        else
+            JOptionPane.showMessageDialog(null,
+                    "No ha seleccionado ningun cliente",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+    }//GEN-LAST:event_jbDireccionesActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptar;

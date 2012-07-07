@@ -1,5 +1,6 @@
 package ar.edu.untdf.clientes.vista;
 
+import ar.edu.untdf.clientes.modelo.Cliente;
 import ar.edu.untdf.clientes.util.DireccionesTableListener;
 
 /**
@@ -8,10 +9,13 @@ import ar.edu.untdf.clientes.util.DireccionesTableListener;
  */
 public class Direcciones extends javax.swing.JInternalFrame {
 
+    private Cliente miCliente;
     /**
      * Creates new form Direcciones
      */
-    public Direcciones() {
+    public Direcciones(Cliente c ) {
+        super();
+        miCliente = c;
         initComponents();
         DireccionesTableListener listener = new DireccionesTableListener(this);
         jtDirecciones.getSelectionModel().addListSelectionListener(listener);
@@ -439,5 +443,19 @@ public class Direcciones extends javax.swing.JInternalFrame {
      */
     public void setJtfTipo(javax.swing.JTextField jtfTipo) {
         this.jtfTipo = jtfTipo;
+    }
+
+    /**
+     * @return the miCliente
+     */
+    public Cliente getMiCliente() {
+        return miCliente;
+    }
+
+    /**
+     * @param miCliente the miCliente to set
+     */
+    public void setMiCliente(Cliente miCliente) {
+        this.miCliente = miCliente;
     }
 }

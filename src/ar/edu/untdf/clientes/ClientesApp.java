@@ -16,8 +16,8 @@ import javax.persistence.TypedQuery;
 public class ClientesApp {
 
     private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("ClientesAppPU");
-    private static ClienteJpaController clienteC=new ClienteJpaController(emf);;
-    private static DireccionJpaController direccionC=new DireccionJpaController(emf);
+    private static ClienteJpaController clienteC = new ClienteJpaController(emf);
+    private static DireccionJpaController direccionC = new DireccionJpaController(emf);
 
     public static ClienteJpaController getClienteC() {
         return clienteC;
@@ -48,6 +48,7 @@ public class ClientesApp {
         //List<Cliente> l =q.getResultList();
         //for(Cliente c:l) System.out.println(c.getNombre());
         Aplicacion app = new Aplicacion();
+        Aplicacion.setApp(app);
         app.setVisible(true);
         Cliente c = ClientesApp.clienteC.findCliente(new Long(53));
         //System.out.println(c.getApellido());

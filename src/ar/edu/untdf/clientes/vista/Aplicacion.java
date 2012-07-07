@@ -10,6 +10,15 @@ import ar.edu.untdf.clientes.util.ClientesTableListener;
  */
 public class Aplicacion extends javax.swing.JFrame {
 
+    public static Aplicacion getApp() {
+        return app;
+    }
+
+    public static void setApp(Aplicacion app) {
+        Aplicacion.app = app;
+    }
+    private static Aplicacion app;
+
     /**
      * Creates new form Aplicacion
      */
@@ -42,6 +51,8 @@ public class Aplicacion extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        desktopPane.setToolTipText("");
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
@@ -165,13 +176,13 @@ public class Aplicacion extends javax.swing.JFrame {
         /*
          * Create and display the form
          */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new Aplicacion().setVisible(true);
-            }
-        });
+        
+               Aplicacion.setApp(new Aplicacion());
+                      Aplicacion.getApp().setVisible(true);
+            
+       
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem copyMenuItem;
     private javax.swing.JMenuItem cutMenuItem;
@@ -189,15 +200,22 @@ public class Aplicacion extends javax.swing.JFrame {
     private javax.swing.JMenuItem saveMenuItem;
     // End of variables declaration//GEN-END:variables
 
+   
     public void addFrame(JInternalFrame panel, String title) {
+                    System.out.println(title);
+
         try {
+            panel.setTitle(title);
             JInternalFrame[] children = desktopPane.getAllFrames();
             for (JInternalFrame f : children) {
-                if (f.getTitle().equals(panel.getTitle())) {
+                if (f.getTitle().equals(title)) {
                     f.setSelected(true);
+                    
+                    System.out.println("intenta poner uno guardaro"+f.getTitle());
                     return;
                 }
             }
+            System.out.println(title);
             desktopPane.add(panel);
             panel.setVisible(true);
             panel.setSelected(true);
