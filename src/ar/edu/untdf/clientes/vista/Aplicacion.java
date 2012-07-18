@@ -202,20 +202,15 @@ public class Aplicacion extends javax.swing.JFrame {
 
    
     public void addFrame(JInternalFrame panel, String title) {
-                    System.out.println(title);
-
         try {
             panel.setTitle(title);
             JInternalFrame[] children = desktopPane.getAllFrames();
             for (JInternalFrame f : children) {
                 if (f.getTitle().equals(title)) {
                     f.setSelected(true);
-                    
-                    System.out.println("intenta poner uno guardaro"+f.getTitle());
                     return;
                 }
             }
-            System.out.println(title);
             desktopPane.add(panel);
             panel.setVisible(true);
             panel.setSelected(true);

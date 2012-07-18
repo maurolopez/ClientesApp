@@ -17,7 +17,7 @@ public class ClienteTableModel extends AbstractTableModel {
     public ClienteTableModel() {
         super();
         clienteC = ClientesApp.getClienteC();
-        this.clientes= clienteC.findClienteEntities().toArray();
+        this.clientes = clienteC.findClienteEntities().toArray();
     }
 
     @Override

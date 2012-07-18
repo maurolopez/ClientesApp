@@ -1,7 +1,12 @@
 package ar.edu.untdf.clientes.vista;
 
+import ar.edu.untdf.clientes.ClientesApp;
 import ar.edu.untdf.clientes.modelo.Cliente;
+import ar.edu.untdf.clientes.modelo.Direccion;
+import ar.edu.untdf.clientes.modelo.DireccionTipo;
+import ar.edu.untdf.clientes.util.DireccionTableModel;
 import ar.edu.untdf.clientes.util.DireccionesTableListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -10,12 +15,16 @@ import ar.edu.untdf.clientes.util.DireccionesTableListener;
 public class Direcciones extends javax.swing.JInternalFrame {
 
     private Cliente miCliente;
+    private DireccionTableModel modeloTabla;
     /**
      * Creates new form Direcciones
      */
     public Direcciones(Cliente c ) {
         super();
         miCliente = c;
+        //jlID.setText(String.valueOf(miCliente.getId()));
+        jlNombre.setText(miCliente.getApellido()+" "+miCliente.getNombre());
+        modeloTabla = new DireccionTableModel(miCliente);
         initComponents();
         DireccionesTableListener listener = new DireccionesTableListener(this);
         jtDirecciones.getSelectionModel().addListSelectionListener(listener);
@@ -39,9 +48,9 @@ public class Direcciones extends javax.swing.JInternalFrame {
         jlNumero = new javax.swing.JLabel();
         jtfNumero = new javax.swing.JTextField();
         jlTipo = new javax.swing.JLabel();
-        jtfTipo = new javax.swing.JTextField();
         jlTelefono = new javax.swing.JLabel();
         jtfTelefono = new javax.swing.JTextField();
+        jcbTipo = new javax.swing.JComboBox();
         jbAceptar = new javax.swing.JButton();
         jbCancelar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -53,10 +62,14 @@ public class Direcciones extends javax.swing.JInternalFrame {
         jbEditar = new javax.swing.JButton();
         jbVolver = new javax.swing.JButton();
 
-        jtDirecciones.setModel(new ar.edu.untdf.clientes.util.DireccionTableModel());
         jsp.setViewportView(jtDirecciones);
 
         jbNuevo.setText("Nuevo");
+        jbNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNuevoActionPerformed(evt);
+            }
+        });
 
         jlCalle.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlCalle.setText("Calle");
@@ -72,12 +85,13 @@ public class Direcciones extends javax.swing.JInternalFrame {
         jlTipo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlTipo.setText("Tipo");
 
-        jtfTipo.setEnabled(false);
-
         jlTelefono.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlTelefono.setText("Telefono");
 
         jtfTelefono.setEnabled(false);
+
+        jcbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TRABAJO", "PERSONAL" }));
+        jcbTipo.setEnabled(false);
 
         javax.swing.GroupLayout jpDatosLayout = new javax.swing.GroupLayout(jpDatos);
         jpDatos.setLayout(jpDatosLayout);
@@ -92,17 +106,15 @@ public class Direcciones extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jtfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpDatosLayout.createSequentialGroup()
-                        .addComponent(jlTipo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jtfTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpDatosLayout.createSequentialGroup()
                         .addGroup(jpDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jlCalle)
-                            .addComponent(jlNumero))
+                            .addComponent(jlNumero)
+                            .addComponent(jlTipo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jpDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jtfCalle, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
-                            .addComponent(jtfNumero))))
+                            .addComponent(jtfNumero)
+                            .addComponent(jcbTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jpDatosLayout.setVerticalGroup(
@@ -119,7 +131,7 @@ public class Direcciones extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlTipo)
-                    .addComponent(jtfTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -129,9 +141,19 @@ public class Direcciones extends javax.swing.JInternalFrame {
 
         jbAceptar.setText("Aceptar");
         jbAceptar.setEnabled(false);
+        jbAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAceptarActionPerformed(evt);
+            }
+        });
 
         jbCancelar.setText("Cancelar");
         jbCancelar.setEnabled(false);
+        jbCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("ID:");
 
@@ -166,6 +188,11 @@ public class Direcciones extends javax.swing.JInternalFrame {
         jbEditar.setEnabled(false);
 
         jbVolver.setText("Volver al cliente");
+        jbVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVolverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -219,11 +246,72 @@ public class Direcciones extends javax.swing.JInternalFrame {
                     .addComponent(jbEliminar)
                     .addComponent(jbEditar)
                     .addComponent(jbVolver))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_jbVolverActionPerformed
+
+    private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
+        jtfCalle.setText("");
+        jtfCalle.setEnabled(true);
+        jtfNumero.setText("");
+        jtfNumero.setEnabled(true);
+        jtfTelefono.setText("");
+        jtfTelefono.setEnabled(true);
+        jcbTipo.setEnabled(true);
+        jbAceptar.setEnabled(true);
+        jbCancelar.setEnabled(true);
+    }//GEN-LAST:event_jbNuevoActionPerformed
+
+    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        jtfCalle.setText("");
+        jtfCalle.setEnabled(false);
+        jtfNumero.setText("");
+        jtfNumero.setEnabled(false);
+        jtfTelefono.setText("");
+        jtfTelefono.setEnabled(false);
+        jcbTipo.setEnabled(false);
+        jbAceptar.setEnabled(false);
+        jbCancelar.setEnabled(false);
+    }//GEN-LAST:event_jbCancelarActionPerformed
+
+    private void jbAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAceptarActionPerformed
+        Direccion d = new Direccion();
+        if(!jtfCalle.getText().equals("") && !jtfNumero.getText().equals("") && !jtfTelefono.getText().equals("")) {
+            try {
+                d.setCalle(jtfCalle.getText());
+                d.setNumero(Integer.parseInt(jtfNumero.getText()));
+                String tipo = (String) jcbTipo.getSelectedItem();
+                if(tipo.equals("TRABAJO"))
+                    d.setTipo(DireccionTipo.TRABAJO);
+                else if(tipo.equals("PERSONAL"))
+                    d.setTipo(DireccionTipo.PERSONAL);
+                d.setCliente(miCliente);
+                ClientesApp.getDireccionC().create(d);
+                modeloTabla = new DireccionTableModel(miCliente);
+                jtfCalle.setText("");
+                jtfCalle.setEnabled(false);
+                jtfNumero.setText("");
+                jtfNumero.setEnabled(false);
+                jtfTelefono.setText("");
+                jtfTelefono.setEnabled(false);
+                jcbTipo.setEnabled(false);
+                jbAceptar.setEnabled(false);
+                jbCancelar.setEnabled(false);
+            }catch(NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null,
+                    "Numero no es numérico",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jbAceptarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
@@ -234,6 +322,7 @@ public class Direcciones extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbNuevo;
     private javax.swing.JButton jbVolver;
+    private javax.swing.JComboBox jcbTipo;
     private javax.swing.JLabel jlCalle;
     private javax.swing.JLabel jlID;
     private javax.swing.JLabel jlNombre;
@@ -246,7 +335,6 @@ public class Direcciones extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtfCalle;
     private javax.swing.JTextField jtfNumero;
     private javax.swing.JTextField jtfTelefono;
-    private javax.swing.JTextField jtfTipo;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -434,15 +522,15 @@ public class Direcciones extends javax.swing.JInternalFrame {
     /**
      * @return the jtfTipo
      */
-    public javax.swing.JTextField getJtfTipo() {
-        return jtfTipo;
+    public javax.swing.JComboBox getJcbTipo() {
+        return jcbTipo;
     }
 
     /**
      * @param jtfTipo the jtfTipo to set
      */
-    public void setJtfTipo(javax.swing.JTextField jtfTipo) {
-        this.jtfTipo = jtfTipo;
+    public void setJcbTipo(javax.swing.JComboBox jtfTipo) {
+        this.jcbTipo = jtfTipo;
     }
 
     /**

@@ -1,11 +1,8 @@
 package ar.edu.untdf.clientes.vista;
 import ar.edu.untdf.clientes.ClientesApp;
-import ar.edu.untdf.clientes.controller.ClienteJpaController;
 import ar.edu.untdf.clientes.modelo.Cliente;
 import ar.edu.untdf.clientes.util.ClienteTableModel;
 import ar.edu.untdf.clientes.util.ClientesTableListener;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -280,11 +277,10 @@ public class Clientes extends javax.swing.JInternalFrame {
         if(tableClientes.getSelectedRow() != -1) {
             Integer fila = tableClientes.getSelectedRow();
             Long id = (Long) tableClientes.getModel().getValueAt(fila, 0);
-            
+
             Cliente c = ClientesApp.getClienteC().findCliente(id);
             Direcciones d = new Direcciones(c);
-            d.setMiCliente(c);
-            Aplicacion.getApp().addFrame(d,"direcciones");
+            Aplicacion.getApp().addFrame(d,"Direcciones de "+(String) c.getApellido()+" "+(String) c.getNombre());
         }
         else
             JOptionPane.showMessageDialog(null,

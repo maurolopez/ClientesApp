@@ -44,8 +44,8 @@ public class ClientesApp {
     }
 
     public static void main(String args[]) {
-        //TypedQuery<Cliente> q=ClientesApp.getClienteC().getEntityManager().createQuery("select e from Cliente as e where e.apellido='gel'",Cliente.class);
-        //List<Cliente> l =q.getResultList();
+        //TypedQuery<Cliente> q = ClientesApp.getClienteC().getEntityManager().createQuery("select e from Cliente as e where e.apellido='gel'",Cliente.class);
+        //List<Cliente> l = q.getResultList();
         //for(Cliente c:l) System.out.println(c.getNombre());
         Aplicacion app = new Aplicacion();
         Aplicacion.setApp(app);
