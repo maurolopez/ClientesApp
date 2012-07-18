@@ -214,7 +214,7 @@ public class Clientes extends javax.swing.JInternalFrame {
                     .addComponent(jbDirecciones)
                     .addComponent(jbEliminar)
                     .addComponent(jbEditar))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -278,7 +278,7 @@ public class Clientes extends javax.swing.JInternalFrame {
             Integer fila = tableClientes.getSelectedRow();
             Long id = (Long) tableClientes.getModel().getValueAt(fila, 0);
 
-            Cliente c = ClientesApp.getClienteC().findCliente(id);
+            Cliente c = (Cliente) ClientesApp.getClienteC().findCliente(id);
             Direcciones d = new Direcciones(c);
             Aplicacion.getApp().addFrame(d,"Direcciones de "+(String) c.getApellido()+" "+(String) c.getNombre());
         }

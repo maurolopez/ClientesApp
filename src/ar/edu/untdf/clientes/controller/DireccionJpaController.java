@@ -7,11 +7,12 @@ package ar.edu.untdf.clientes.controller;
 import ar.edu.untdf.clientes.controller.exceptions.NonexistentEntityException;
 import ar.edu.untdf.clientes.modelo.Direccion;
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -134,4 +135,24 @@ public class DireccionJpaController implements Serializable {
             em.close();
         }
     }
+
+    public Direccion[] buscarDireccionesDelCliente(Long idCliente) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createQuery("select d from Direccion d where d.cliente.id = :id");
+            q.setParameter("id", idCliente);
+            List lista = (List) q.getResultList();
+            Iterator i = lista.iterator();
+            Direccion[] direcciones = new Direccion[lista.size()];
+            int indice = 0;
+            while(i.hasNext()) {
+                direcciones[indice] = (Direccion) i.next();
+                indice++;
+            }
+            return direcciones;
+        } finally {
+            em.close();
+        }
+    }
+
 }

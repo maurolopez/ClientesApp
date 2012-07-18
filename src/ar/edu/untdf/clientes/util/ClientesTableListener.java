@@ -11,7 +11,7 @@ import javax.swing.event.ListSelectionListener;
 public class ClientesTableListener implements ListSelectionListener {
 
     Clientes form;
-    int rowSelected = 0;
+    int rowSelected = -1;
 
     // It is necessary to keep the table since it is not possible
     // to determine the table from the event's source

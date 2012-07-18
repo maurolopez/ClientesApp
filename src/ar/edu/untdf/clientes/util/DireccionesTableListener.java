@@ -11,7 +11,7 @@ import javax.swing.event.ListSelectionListener;
 public class DireccionesTableListener implements ListSelectionListener {
 
     Direcciones form;
-    int rowSelected = 0;
+    int rowSelected = -1;
 
     // It is necessary to keep the table since it is not possible
     // to determine the table from the event's source
@@ -22,7 +22,7 @@ public class DireccionesTableListener implements ListSelectionListener {
     @Override
     public void valueChanged(ListSelectionEvent e) {
         // If cell selection is enabled, both row and column change events are fired
-        if ( this.rowSelected!=form.getJtDirecciones().getSelectedRow() && form.getJtDirecciones().getSelectedRow()>0) { 
+        if ( this.rowSelected != form.getJtDirecciones().getSelectedRow() && form.getJtDirecciones().getSelectedRow() >= 0) { 
             System.out.println(form.getJtDirecciones().getSelectedRow());
             this.rowSelected=form.getJtDirecciones().getSelectedRow();
         }

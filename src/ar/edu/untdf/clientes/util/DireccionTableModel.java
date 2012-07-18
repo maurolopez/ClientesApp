@@ -2,8 +2,11 @@ package ar.edu.untdf.clientes.util;
 
 import ar.edu.untdf.clientes.ClientesApp;
 import ar.edu.untdf.clientes.controller.DireccionJpaController;
+import ar.edu.untdf.clientes.controller.exceptions.NonexistentEntityException;
 import ar.edu.untdf.clientes.modelo.Cliente;
 import ar.edu.untdf.clientes.modelo.Direccion;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -13,25 +16,17 @@ import javax.swing.table.AbstractTableModel;
 public class DireccionTableModel extends AbstractTableModel {
 
     DireccionJpaController direccionC;
-    Object[] direcciones;
+    Direccion[] direcciones;
 
     public DireccionTableModel(Cliente c) {
         super();
         direccionC = ClientesApp.getDireccionC();
-        Object[] dir = direccionC.findDireccionEntities().toArray();
-        int j = 0;
-        for (int i = 0;i < dir.length;i++) {
-            Direccion dAux = (Direccion) dir[i];
-            if(dAux.getCliente().getId() == c.getId()) {
-                this.direcciones[j] = dAux;
-                j++;
-            }
-        }
+        this.direcciones = getDirecciones(c);
     }
 
     @Override
     public int getRowCount() {
-        return direccionC.getDireccionCount();
+        return direcciones.length;
     }
 
     @Override
@@ -42,11 +37,11 @@ public class DireccionTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int row, int column) {
         switch(column) {
-            case 0:return ((Direccion)direcciones[row]).getId();
-            case 1:return ((Direccion)direcciones[row]).getCalle();
-            case 2:return ((Direccion)direcciones[row]).getNumero();
-            case 3:return ((Direccion)direcciones[row]).getTipo();
-            case 4:return ((Direccion)direcciones[row]).getTelefono();
+            case 0:return direcciones[row].getId();
+            case 1:return direcciones[row].getCalle();
+            case 2:return direcciones[row].getNumero();
+            case 3:return direcciones[row].getTipo();
+            case 4:return direcciones[row].getTelefono();
             default:return null;
         }
     }
@@ -60,6 +55,19 @@ public class DireccionTableModel extends AbstractTableModel {
             case 3:return "Tipo";
             case 4:return "Telefono";
             default:return null;
+        }
+    }
+
+    public Direccion[] getDirecciones(Cliente c) {
+        return direccionC.buscarDireccionesDelCliente(c.getId());
+    }
+
+    public void eliminarDireccion(int id) {
+        try {
+            Long aux = (Long) getValueAt(id,0);
+            direccionC.destroy(aux);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(DireccionTableModel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

@@ -1,11 +1,15 @@
 package ar.edu.untdf.clientes.vista;
 
 import ar.edu.untdf.clientes.ClientesApp;
+import ar.edu.untdf.clientes.controller.exceptions.NonexistentEntityException;
 import ar.edu.untdf.clientes.modelo.Cliente;
 import ar.edu.untdf.clientes.modelo.Direccion;
 import ar.edu.untdf.clientes.modelo.DireccionTipo;
 import ar.edu.untdf.clientes.util.DireccionTableModel;
 import ar.edu.untdf.clientes.util.DireccionesTableListener;
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,15 +23,16 @@ public class Direcciones extends javax.swing.JInternalFrame {
     /**
      * Creates new form Direcciones
      */
-    public Direcciones(Cliente c ) {
+    public Direcciones(Cliente c) {
         super();
-        miCliente = c;
-        //jlID.setText(String.valueOf(miCliente.getId()));
-        jlNombre.setText(miCliente.getApellido()+" "+miCliente.getNombre());
-        modeloTabla = new DireccionTableModel(miCliente);
+        this.miCliente = (Cliente) c;
+        modeloTabla = new DireccionTableModel(c);
         initComponents();
+        jlID.setText(String.valueOf(c.getId()));
+        jlNombre.setText(c.getApellido()+" "+c.getNombre());
         DireccionesTableListener listener = new DireccionesTableListener(this);
         jtDirecciones.getSelectionModel().addListSelectionListener(listener);
+        jtDirecciones.setModel(modeloTabla);
     }
 
     /**
@@ -166,28 +171,31 @@ public class Direcciones extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlID, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlID, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jlNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jlID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jlNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jbEliminar.setText("Eliminar");
-        jbEliminar.setEnabled(false);
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarActionPerformed(evt);
+            }
+        });
 
         jbEditar.setText("Editar");
         jbEditar.setEnabled(false);
 
-        jbVolver.setText("Volver al cliente");
+        jbVolver.setText("Cerrar Ventana");
         jbVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbVolverActionPerformed(evt);
@@ -202,10 +210,8 @@ public class Direcciones extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jsp, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jsp, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jbNuevo)
@@ -215,22 +221,24 @@ public class Direcciones extends javax.swing.JInternalFrame {
                                     .addComponent(jbAceptar)
                                     .addGap(18, 18, 18)
                                     .addComponent(jbCancelar))
-                                .addComponent(jpDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jpDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jbEliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbVolver)
-                        .addContainerGap())))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jbEliminar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbEditar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbVolver))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jbNuevo)
@@ -246,14 +254,19 @@ public class Direcciones extends javax.swing.JInternalFrame {
                     .addComponent(jbEliminar)
                     .addComponent(jbEditar)
                     .addComponent(jbVolver))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
-        setVisible(false);
+        try {
+            this.setSelected(false);
+            this.setVisible(false);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(Direcciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jbVolverActionPerformed
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
@@ -286,6 +299,7 @@ public class Direcciones extends javax.swing.JInternalFrame {
             try {
                 d.setCalle(jtfCalle.getText());
                 d.setNumero(Integer.parseInt(jtfNumero.getText()));
+                d.setTelefono(Long.parseLong(jtfTelefono.getText()));
                 String tipo = (String) jcbTipo.getSelectedItem();
                 if(tipo.equals("TRABAJO"))
                     d.setTipo(DireccionTipo.TRABAJO);
@@ -294,6 +308,7 @@ public class Direcciones extends javax.swing.JInternalFrame {
                 d.setCliente(miCliente);
                 ClientesApp.getDireccionC().create(d);
                 modeloTabla = new DireccionTableModel(miCliente);
+                jtDirecciones.setModel(modeloTabla);
                 jtfCalle.setText("");
                 jtfCalle.setEnabled(false);
                 jtfNumero.setText("");
@@ -311,6 +326,14 @@ public class Direcciones extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_jbAceptarActionPerformed
+
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+        if (jtDirecciones.getSelectedRow() >= 0) {
+            modeloTabla.eliminarDireccion(jtDirecciones.getSelectedRow());
+            modeloTabla = new DireccionTableModel(miCliente);
+            jtDirecciones.setModel(modeloTabla);
+        }
+    }//GEN-LAST:event_jbEliminarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
