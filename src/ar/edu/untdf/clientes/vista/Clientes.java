@@ -3,6 +3,9 @@ import ar.edu.untdf.clientes.ClientesApp;
 import ar.edu.untdf.clientes.modelo.Cliente;
 import ar.edu.untdf.clientes.util.ClienteTableModel;
 import ar.edu.untdf.clientes.util.ClientesTableListener;
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -19,6 +22,7 @@ public class Clientes extends javax.swing.JInternalFrame {
      */
     public Clientes() {
         initComponents();
+        pack();
         ClientesTableListener listener = new ClientesTableListener(this);
         tableClientes.getSelectionModel().addListSelectionListener(listener);
     }
@@ -82,57 +86,23 @@ public class Clientes extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tableClientes = new javax.swing.JTable();
-        fieldNombre = new javax.swing.JTextField();
-        fieldApellido = new javax.swing.JTextField();
-        fieldCuit = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        nuevo = new javax.swing.JButton();
-        aceptar = new javax.swing.JButton();
-        cancelar = new javax.swing.JButton();
         jbDirecciones = new javax.swing.JButton();
         jbEliminar = new javax.swing.JButton();
-        jbEditar = new javax.swing.JButton();
+        jbVolver = new javax.swing.JButton();
+        jpDatos = new javax.swing.JPanel();
+        nuevo = new javax.swing.JButton();
+        fieldNombre = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        fieldApellido = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        fieldCuit = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        cancelar = new javax.swing.JButton();
+        aceptar = new javax.swing.JButton();
 
         tableClientes.setModel(new ar.edu.untdf.clientes.util.ClienteTableModel());
         tableClientes.setShowHorizontalLines(false);
         jScrollPane1.setViewportView(tableClientes);
-
-        fieldNombre.setEnabled(false);
-
-        fieldApellido.setEnabled(false);
-
-        fieldCuit.setEnabled(false);
-
-        jLabel1.setText("Nombre");
-
-        jLabel2.setText("Apellido");
-
-        jLabel3.setText("Cuit");
-
-        nuevo.setText("Nuevo");
-        nuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nuevoActionPerformed(evt);
-            }
-        });
-
-        aceptar.setText("Aceptar");
-        aceptar.setEnabled(false);
-        aceptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aceptarActionPerformed(evt);
-            }
-        });
-
-        cancelar.setText("Cancelar");
-        cancelar.setEnabled(false);
-        cancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelarActionPerformed(evt);
-            }
-        });
 
         jbDirecciones.setText("Direcciones");
         jbDirecciones.addActionListener(new java.awt.event.ActionListener() {
@@ -144,77 +114,134 @@ public class Clientes extends javax.swing.JInternalFrame {
         jbEliminar.setText("Eliminar");
         jbEliminar.setEnabled(false);
 
-        jbEditar.setText("Editar");
-        jbEditar.setEnabled(false);
+        jbVolver.setText("Cerrar Ventana");
+        jbVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVolverActionPerformed(evt);
+            }
+        });
+
+        nuevo.setText("Nuevo");
+        nuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nuevoActionPerformed(evt);
+            }
+        });
+
+        fieldNombre.setEnabled(false);
+
+        jLabel1.setText("Nombre");
+
+        fieldApellido.setEnabled(false);
+
+        jLabel2.setText("Apellido");
+
+        fieldCuit.setEnabled(false);
+
+        jLabel3.setText("Cuit");
+
+        cancelar.setText("Cancelar");
+        cancelar.setEnabled(false);
+        cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarActionPerformed(evt);
+            }
+        });
+
+        aceptar.setText("Aceptar");
+        aceptar.setEnabled(false);
+        aceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aceptarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpDatosLayout = new javax.swing.GroupLayout(jpDatos);
+        jpDatos.setLayout(jpDatosLayout);
+        jpDatosLayout.setHorizontalGroup(
+            jpDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpDatosLayout.createSequentialGroup()
+                .addGroup(jpDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpDatosLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jpDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nuevo)
+                            .addGroup(jpDatosLayout.createSequentialGroup()
+                                .addGap(63, 63, 63)
+                                .addComponent(aceptar)
+                                .addGap(18, 18, 18)
+                                .addComponent(cancelar))))
+                    .addGroup(jpDatosLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(jpDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(jpDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(fieldNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                            .addComponent(fieldApellido, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(fieldCuit, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addContainerGap())
+        );
+        jpDatosLayout.setVerticalGroup(
+            jpDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpDatosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(nuevo)
+                .addGap(18, 18, 18)
+                .addGroup(jpDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fieldCuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGroup(jpDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(aceptar)
+                    .addComponent(cancelar))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel1))
-                                .addGap(33, 33, 33)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(fieldApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                                    .addComponent(fieldCuit)
-                                    .addComponent(fieldNombre)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nuevo)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(aceptar)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(cancelar)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jpDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jbDirecciones)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbEditar)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jbVolver))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(nuevo)
-                        .addGap(37, 37, 37)
+                        .addComponent(jpDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 13, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(fieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(fieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(13, 13, 13)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(fieldCuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(aceptar)
-                            .addComponent(cancelar)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbDirecciones)
-                    .addComponent(jbEliminar)
-                    .addComponent(jbEditar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jbDirecciones)
+                            .addComponent(jbEliminar)
+                            .addComponent(jbVolver))))
+                .addContainerGap())
         );
 
         pack();
@@ -289,6 +316,15 @@ public class Clientes extends javax.swing.JInternalFrame {
                     JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jbDireccionesActionPerformed
 
+    private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
+        try {
+            this.setSelected(false);
+            this.setVisible(false);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(Direcciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jbVolverActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptar;
     private javax.swing.JButton cancelar;
@@ -300,8 +336,9 @@ public class Clientes extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbDirecciones;
-    private javax.swing.JButton jbEditar;
     private javax.swing.JButton jbEliminar;
+    private javax.swing.JButton jbVolver;
+    private javax.swing.JPanel jpDatos;
     private javax.swing.JButton nuevo;
     private javax.swing.JTable tableClientes;
     // End of variables declaration//GEN-END:variables

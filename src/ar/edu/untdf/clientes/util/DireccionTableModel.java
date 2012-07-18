@@ -31,17 +31,16 @@ public class DireccionTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 4;
     }
 
     @Override
     public Object getValueAt(int row, int column) {
         switch(column) {
-            case 0:return direcciones[row].getId();
+            case 0:return direcciones[row].getTipo();
             case 1:return direcciones[row].getCalle();
             case 2:return direcciones[row].getNumero();
-            case 3:return direcciones[row].getTipo();
-            case 4:return direcciones[row].getTelefono();
+            case 3:return direcciones[row].getTelefono();
             default:return null;
         }
     }
@@ -49,11 +48,10 @@ public class DireccionTableModel extends AbstractTableModel {
     @Override
     public String getColumnName(int columnIndex) {
         switch(columnIndex) {
-            case 0:return "ID";
+            case 0:return "Tipo";
             case 1:return "Calle";
             case 2:return "Numero";
-            case 3:return "Tipo";
-            case 4:return "Telefono";
+            case 3:return "Telefono";
             default:return null;
         }
     }
