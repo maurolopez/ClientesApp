@@ -139,6 +139,7 @@ public class DireccionJpaController implements Serializable {
     public Direccion[] buscarDireccionesDelCliente(Long idCliente) {
         EntityManager em = getEntityManager();
         try {
+            // query
             Query q = em.createQuery("select d from Direccion d where d.cliente.id = :id");
             q.setParameter("id", idCliente);
             List lista = (List) q.getResultList();
